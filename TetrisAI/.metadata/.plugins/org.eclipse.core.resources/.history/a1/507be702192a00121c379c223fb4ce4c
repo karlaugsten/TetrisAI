@@ -1,0 +1,16 @@
+package game;
+
+public class Run {
+
+	/**
+	 * Main function which will setup match
+	 */
+	public static void main(String[] args) {
+		Connection c = new Connection();
+		String matchtoken = "";
+		String url = "";
+		c.ConnectManual(matchtoken, url);
+
+	}
+
+}

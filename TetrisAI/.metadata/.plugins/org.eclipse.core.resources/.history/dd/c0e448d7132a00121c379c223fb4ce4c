@@ -1,0 +1,17 @@
+package game;
+
+public class Connection {
+
+	/**
+	 * Method to manually connect to test server using 
+	 * Match token and server url.
+	 * @return True if connection was successful.
+	 */
+	public boolean ConnectManual(){
+		
+		
+		return true;
+	}
+	
+	
+}
