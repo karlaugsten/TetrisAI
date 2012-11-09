@@ -7,8 +7,8 @@ public class Run {
 	 */
 	public static void main(String[] args) {
 		Connection c = new Connection();
-		String matchtoken = "40a4da18-7724-4def-bf33-c88d409ee4d0";
-		String url = "ec2-54-242-48-216.compute-1.amazonaws.com";
+		String matchtoken = "99da22f4-71ea-4eff-a5de-079fd7db6148";
+		String url = "ec2-50-19-179-117.compute-1.amazonaws.com";
 		c.ConnectManual(matchtoken, url);
 
 	}

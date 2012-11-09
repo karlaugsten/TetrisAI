@@ -2,8 +2,12 @@ package game;
 
 import org.zeromq.ZMQ;
 
+
 public class Connection {
 
+	private String connectmsg = "{ \n\"comm_type\" : \"MatchConnect\",\n\"match_token\" : ";
+	private String endmsg = ",\n\"team_name\" : \"Team 112\"\n\"password\" : \"castlemountain\"\n }";
+	
 	/**
 	 * TODO: generate initialization
 	 */
@@ -21,11 +25,10 @@ public class Connection {
 		
 		test.connect("tcp://"+url+":5557");
 		
-		Command connect = new MatchConnectCommand(matchtoken);
 		
-		
-		System.out.println(connect.getMessage());
-		test.send(connect.getBytes(), 0);
+		String conmsg = connectmsg+matchtoken+endmsg;
+		System.out.println(conmsg);
+		test.send(conmsg.getBytes(), 0);
 		byte[] recsig = test.recv(0);
 		
 		System.out.println(new String(recsig));
