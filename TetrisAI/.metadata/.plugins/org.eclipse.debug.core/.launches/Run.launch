@@ -7,5 +7,7 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="game.Run"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-Djava.library.path=/usr/local/lib"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="AI"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.library.path=/usr/local/lib"/>
 </launchConfiguration>
