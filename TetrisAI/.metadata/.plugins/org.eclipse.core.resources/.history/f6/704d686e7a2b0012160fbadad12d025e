@@ -1,8 +1,5 @@
 package tetrisconnector;
 
-import java.text.ParseException;
-
-import org.json.JSONObject;
 import org.zeromq.ZMQ;
 
 import integration.Communicator;
@@ -29,32 +26,9 @@ public class StateChannel implements Runnable {
 		while(true){
 			
 			byte[] msg = channel.recv(0);
-			Response c = processMessage(msg);
-			com.putMessage(c);
 			System.out.println(new String(msg));
 		}
 	}
 
-	public Response processMessage(byte[] message){
-		String m = new String(message);
-		JSONObject o = null;
-		try {
-			o = new JSONObject(m);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String type = (String) o.get("comm_type");
-		if(type.equals("GameBoardState")){
-			
-		}else if(type.equals("GamePieceState")){
-			
-		}else if(type.equals("MatchEnd")){
-			
-		}else if(type.equals("GameEnd")){
-			
-		}
-		return null;
-	}
 	
 }

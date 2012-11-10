@@ -1,0 +1,12 @@
+package tetrisconnector;
+
+import org.json.JSONObject;
+
+public class BoardStateResp extends Response {
+	
+	public BoardStateResp(JSONObject j){
+		
+		
+	}
+
+}

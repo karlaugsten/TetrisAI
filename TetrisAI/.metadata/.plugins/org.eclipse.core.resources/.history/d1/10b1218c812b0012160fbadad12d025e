@@ -1,0 +1,14 @@
+package tetrisconnector;
+
+public class BoardStateResp implements Response {
+	
+	private int sequence;
+	private double timestamp;
+	
+	
+	public BoardStateResp(JSONObject j){
+		
+		
+	}
+
+}

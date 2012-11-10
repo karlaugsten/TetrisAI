@@ -29,15 +29,13 @@ public class StateChannel implements Runnable {
 		while(true){
 			
 			byte[] msg = channel.recv(0);
-			Response c = processMessage(msg);
-			com.putMessage(c);
 			System.out.println(new String(msg));
 		}
 	}
 
-	public Response processMessage(byte[] message){
+	public Command processMessage(byte[] message){
 		String m = new String(message);
-		JSONObject o = null;
+		JSONObject o;
 		try {
 			o = new JSONObject(m);
 		} catch (ParseException e) {
@@ -46,6 +44,7 @@ public class StateChannel implements Runnable {
 		}
 		String type = (String) o.get("comm_type");
 		if(type.equals("GameBoardState")){
+			
 			
 		}else if(type.equals("GamePieceState")){
 			

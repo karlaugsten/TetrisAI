@@ -29,13 +29,13 @@ public class StateChannel implements Runnable {
 		while(true){
 			
 			byte[] msg = channel.recv(0);
-			Response c = processMessage(msg);
+			Command c = processMessage(msg);
 			com.putMessage(c);
 			System.out.println(new String(msg));
 		}
 	}
 
-	public Response processMessage(byte[] message){
+	public Command processMessage(byte[] message){
 		String m = new String(message);
 		JSONObject o = null;
 		try {

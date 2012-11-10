@@ -1,0 +1,5 @@
+package tetrisconnector;
+
+public class PieceStateResp implements Response {
+
+}

@@ -1,0 +1,13 @@
+package tetrisconnector;
+
+public class Response {
+	
+	private int sequence;
+	private double timestamp;
+	private String type;
+	
+	public Response(){
+		
+		
+	}
+}

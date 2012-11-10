@@ -1,0 +1,5 @@
+package tetrisconnector;
+
+public class BoardStateResp implements Response {
+
+}
