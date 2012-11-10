@@ -1,0 +1,17 @@
+package game;
+
+public class MoveCommand implements Command {
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getBytes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

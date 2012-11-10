@@ -1,0 +1,12 @@
+package game;
+
+public class StateChannel implements Runnable {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

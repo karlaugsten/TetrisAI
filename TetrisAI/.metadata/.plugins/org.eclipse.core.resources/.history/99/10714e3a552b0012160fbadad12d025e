@@ -1,0 +1,36 @@
+package game;
+
+import org.zeromq.ZMQ;
+
+public class CommandChannel implements Runnable{
+	
+	private String clientToken;
+	private String matchToken;
+	private ZMQ.Context context;
+	private ZMQ.Socket channel;
+	
+	public CommandChannel(ZMQ.Context c){
+		context = c;
+		channel = context.socket(ZMQ.REQ);
+	}
+	
+	public boolean invoke(String matchToken, String url){
+		this.matchToken = matchToken;
+		channel.connect("tcp://"+url+":5557");
+		(new Thread(this)).start();
+		return true;
+	}
+	
+	/**
+	 * This will be the command channel thread running constantly posting commands... etc
+	 */
+	@Override
+	public void run() {
+		
+		
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,26 @@
+package game;
+
+import org.zeromq.ZMQ;
+
+public class CommandChannel implements Runnable{
+	
+	private String clientToken;
+	private String matchToken;
+	private ZMQ.Context context;
+	private ZMQ.Socket channel;
+	
+	public CommandChannel(ZMQ.Context c){
+		context = c;
+		channel = context.socket(ZMQ.REQ);
+	}
+
+	@Override
+	public void run() {
+		
+		
+	}
+	
+	
+	
+
+}

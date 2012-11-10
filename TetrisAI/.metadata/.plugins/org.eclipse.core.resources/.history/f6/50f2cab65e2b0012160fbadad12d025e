@@ -1,0 +1,21 @@
+package game;
+
+import integration.Communicator;
+
+public class StateChannel implements Runnable {
+
+	Communicator com;
+	
+	public StateChannel(Communicator com){
+		this.com = com;
+		
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

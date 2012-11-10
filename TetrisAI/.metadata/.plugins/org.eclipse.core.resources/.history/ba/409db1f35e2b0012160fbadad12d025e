@@ -1,0 +1,25 @@
+package game;
+
+import org.zeromq.ZMQ;
+
+import integration.Communicator;
+
+public class StateChannel implements Runnable {
+
+	private Communicator com;
+	private ZMQ.Socket channel;
+	
+	public StateChannel(Communicator com, ZMQ.Context c){
+		this.com = com;
+		channel = c.socket(ZMQ.PUB);
+		
+	}
+	
+	@Override
+	public void run() {
+		
+		
+	}
+
+	
+}

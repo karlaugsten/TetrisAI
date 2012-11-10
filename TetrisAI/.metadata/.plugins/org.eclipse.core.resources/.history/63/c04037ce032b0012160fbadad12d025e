@@ -1,0 +1,19 @@
+package game;
+
+import org.zeromq.ZMQ;
+
+public class CommandChannel {
+	
+	private String clientToken;
+	private String matchToken;
+	private ZMQ.Context context;
+	private ZMQ.Socket channel;
+	
+	public CommandChannel(){
+		
+		
+		
+	}
+	
+
+}

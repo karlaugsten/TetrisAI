@@ -1,0 +1,17 @@
+package game;
+
+public class Run {
+
+	/**
+	 * Main function which will setup match
+	 */
+	public static void main(String[] args) {
+		Connect c = new Connect();
+		String matchtoken = "2cab33d9-0520-47ae-bee7-400c6c2aac85";
+		String url = "ec2-50-19-179-117.compute-1.amazonaws.com";
+		c.ConnectManual(matchtoken, url);
+		//c.ConnectAuto();
+
+	}
+
+}

@@ -1,0 +1,53 @@
+package game;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.zeromq.ZMQ;
+
+public class CommandChannel implements Runnable{
+	
+	private String clientToken;
+	private String matchToken;
+	private ZMQ.Context context;
+	private ZMQ.Socket channel;
+	private Queue<Command> queue;
+	private Lock qMutex;
+	private Condition empty;
+	
+	public CommandChannel(ZMQ.Context c){
+		context = c;
+		channel = context.socket(ZMQ.REQ);
+		queue = new LinkedList<Command>();
+		qMutex = new ReentrantLock();
+		empty = qMutex.newCondition();
+	}
+	
+	public boolean invoke(String matchToken, String url){
+		this.matchToken = matchToken;
+		channel.connect("tcp://"+url+":5557");
+		(new Thread(this)).start();
+		return true;
+	}
+	
+	/**
+	 * This will be the command channel thread running constantly posting commands... etc
+	 */
+	@Override
+	public void run() {
+		
+		
+	}
+	
+	public void queueCommand(Command c){
+		qMutex.lock();
+		queue.add(c);
+		empty.signal();
+		qMutex.unlock();
+		
+	}
+	
+}
