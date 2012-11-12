@@ -1,0 +1,40 @@
+package tetrisconnector;
+
+import org.json.JSONObject;
+
+public class BoardStateResp extends Response {
+	
+	private String gamename;
+	private JSONObject opponentstate;
+	
+	
+	public BoardStateResp(JSONObject j){
+		
+		super(1,2.0,"");
+		
+	}
+	
+
+	private class State{
+		
+		private String boardstate;
+		private int piecenum;
+		private int[] clearedrows;
+		
+		public State(JSONObject st){
+			setBoardstate(st.getString("board_state"));
+			piecenum = Integer.parseInt(st.getString("piece_number"));
+			clearedrows = (int[])st.get("cleared_rows");
+			
+		}
+
+		public String getBoardstate() {
+			return boardstate;
+		}
+
+		public void setBoardstate(String boardstate) {
+			this.boardstate = boardstate;
+		}
+		
+	}
+}

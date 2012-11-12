@@ -1,0 +1,38 @@
+package integration;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import tetrisconnector.Response;
+import tetrisconnector.BoardStateResp;
+
+public class Communicator {
+	
+	private Lock lock = new ReentrantLock();
+	private int[] boardstate = new int[10];
+	private int[] oppboardstate = new int[10];
+	
+	public Communicator(){}
+	
+	public void putResponse(Response r){
+		if(r instanceof BoardStateResp){
+			updateBoardState((BoardStateResp) r);
+		}
+	}
+	
+	public void updateBoardState(BoardStateResp b){
+		lock.lock();
+		
+		
+		String ourboard = b.getBoardState();
+		String theirboard = b.getOppBoardState();
+		for(int i = 0; i < 10; i++){
+			String row = ourboard.substring(4*i,4*(i+1));
+			String opprow = theirboard.substring(4*i,4*(i+1));
+			boardstate[i] = ((int)Integer.parseInt(row,16)) >> 2;
+			oppboardstate[i] = ((int)Integer.parseInt(opprow,16)) >> 2;
+		}
+		lock.unlock();
+	}
+
+}

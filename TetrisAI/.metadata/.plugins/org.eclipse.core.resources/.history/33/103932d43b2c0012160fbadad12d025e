@@ -1,0 +1,17 @@
+package integration;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import tetrisconnector.Response;
+
+public class Communicator {
+	
+	private Lock lock = new ReentrantLock();
+	
+	
+	public Communicator(){}
+	
+	public void putMessage(Response r){}
+
+}

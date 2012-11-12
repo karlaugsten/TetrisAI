@@ -1,0 +1,16 @@
+package ai;
+
+public class PageRank {
+	
+	private int[] ranks;
+	
+	public PageRank(){
+		ranks = new int[43046721];
+	}
+	
+	public void performRanks(){
+		
+	}
+	
+
+}

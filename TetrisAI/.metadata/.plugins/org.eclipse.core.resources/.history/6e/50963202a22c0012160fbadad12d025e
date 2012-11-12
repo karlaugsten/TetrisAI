@@ -1,0 +1,38 @@
+package ai;
+
+public class PageRank {
+	
+	private int[][] ranks;
+	private int numofstacks = 43046721;
+	
+	public PageRank(){
+		ranks = new int[2][numofstacks];
+		for(int i = 0; i < numofstacks; i++){
+			ranks[0][i] = 1;
+			ranks[1][i] = 1;
+		}
+	}
+	
+	public void performRanks(){
+		for (int iteration = 0; iteration < 1000; iteration++)
+		{
+			for (int stack = 0; stack < numofstacks; stack++)
+			{
+				ranks[iteration%2][stack] = rank(iteration, stack);
+			}
+		}
+		
+	}
+	
+	public int rank(int iteration, int stack){
+		
+		return 0;
+	}
+	
+	public int rankPiece(int iteration, int stack, String piece){
+		
+		return 0;
+	}
+	
+
+}

@@ -1,0 +1,21 @@
+package tetrisconnector;
+
+import ai.PageRank;
+
+public class Run {
+
+	/**
+	 * Main function which will setup match
+	 */
+	public static void main(String[] args) {
+		PageRank alg = new PageRank();
+		alg.performRanks();
+		Connect c = new Connect();
+		String matchtoken = "8723c3a6-11b0-47dc-91d3-4a552bba5c72";
+		String url = "ec2-50-19-179-117.compute-1.amazonaws.com";
+		c.ConnectManual(matchtoken, url);
+		//c.ConnectAuto();
+
+	}
+
+}

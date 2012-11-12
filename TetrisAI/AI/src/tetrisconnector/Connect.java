@@ -20,12 +20,24 @@ public class Connect {
 		ZMQ.Context context = ZMQ.context(1);
 		
 		CommandChannel cChannel = new CommandChannel(context);
-		StateChannel sChannel = new StateChannel(new Communicator(),context);
-		
+			
 		
 		Command connect = new MatchConnectCommand(matchtoken);
 		cChannel.invoke(url);
 		cChannel.queueCommand(connect);
+		System.out.println("Connect: Waiting for client token..");
+		while(cChannel.getClienttoken() == null){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		System.out.println("Connect: client token retrieved, setting up state channel");
+		StateChannel sChannel = new StateChannel(new Communicator(cChannel,cChannel.getClienttoken()),context);	
+		
 		sChannel.invoke(url,matchtoken);
 		
 		try {

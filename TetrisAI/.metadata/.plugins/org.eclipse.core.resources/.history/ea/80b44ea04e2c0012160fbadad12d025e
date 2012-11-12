@@ -1,0 +1,61 @@
+package tetrisconnector;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+public class PieceStateResp extends Response {
+
+	private String gamename;
+	private State opponentstate;
+	private State state;
+	
+	
+	public PieceStateResp(JSONObject j){
+		
+		super(Integer.parseInt(j.getString("sequence")),(double)j.get("timestamp"),j.getString("comm_type"), j);
+		JSONArray jsub = j.getJSONArray("states");
+		if(jsub.getJSONObject(0).has("Team 112"))
+		{
+			setState(new State(jsub.getJSONObject(0)));
+			setOpponentstate(new State(jsub.getJSONObject(1)));
+			
+		}
+		else if(jsub.getJSONObject(1).has("Team 112"))
+		{
+			setState(new State(jsub.getJSONObject(1)));
+			setOpponentstate(new State(jsub.getJSONObject(0)));
+			
+		}
+		else
+		{
+			System.out.println("ERROR: DID NOT RETRIEVE STATE");
+		}
+	}
+
+	public String getGamename() {
+		return gamename;
+	}
+
+
+	public void setGamename(String gamename) {
+		this.gamename = gamename;
+	}
+
+
+	class PieceState{
+		
+		private String boardstate;
+		private int piecenum;
+		private int[] clearedrows;
+		
+		public PieceState(JSONObject st){
+			setBoardstate(st.getString("board_state"));
+			setPiecenum(Integer.parseInt(st.getString("piece_number")));
+			setClearedrows((int[])st.get("cleared_rows"));
+			
+		}
+		
+	}
+	
+}

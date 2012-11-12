@@ -1,0 +1,131 @@
+package tetrisconnector;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class PieceStateResp extends Response {
+
+	private String gamename;
+	private PieceState opponentstate;
+	private PieceState state;
+	private String[] piecequeue;
+	
+	
+	public PieceStateResp(JSONObject j){
+		
+		super(Integer.parseInt(j.getString("sequence")),(double)j.get("timestamp"),j.getString("comm_type"), j);
+		this.setPiecequeue((String[]) j.get("queue"));
+		JSONArray jsub = j.getJSONArray("states");
+		if(jsub.getJSONObject(0).has("Team 112"))
+		{
+			this.setState(new PieceState(jsub.getJSONObject(0)));
+			this.setOpponentstate(new PieceState(jsub.getJSONObject(1)));
+			
+		}
+		else if(jsub.getJSONObject(1).has("Team 112"))
+		{
+			this.setState(new PieceState(jsub.getJSONObject(1)));
+			this.setOpponentstate(new PieceState(jsub.getJSONObject(0)));
+			
+		}
+		else
+		{
+			System.out.println("ERROR: DID NOT RETRIEVE PIECE STATE");
+		}
+	}
+
+	public String getGamename() {
+		return gamename;
+	}
+
+
+	public void setGamename(String gamename) {
+		this.gamename = gamename;
+	}
+
+	public void setOpponentstate(PieceState opponentstate) {
+		this.opponentstate = opponentstate;
+	}
+	
+	public String getPiece(){
+		return state.getPiece();
+	}
+	
+	public int getPieceRow(){
+		return state.getRow();
+	}
+	
+	public int getPieceColumn(){
+		return state.getColumn();
+	}
+	
+	public int getPieceOrient(){
+		return state.getOrient();
+	}
+
+	public void setState(PieceState state) {
+		this.state = state;
+	}
+	
+	public String getOppPiece(){
+		return opponentstate.getPiece();
+	}
+	
+	public int getOppPieceRow(){
+		return opponentstate.getRow();
+	}
+	
+	public int getOppPieceColumn(){
+		return opponentstate.getColumn();
+	}
+	
+	public int getOppPieceOrient(){
+		return opponentstate.getOrient();
+	}
+
+	public String[] getPiecequeue() {
+		return piecequeue;
+	}
+
+	private void setPiecequeue(String[] piecequeue) {
+		this.piecequeue = piecequeue;
+	}
+
+
+	class PieceState{
+		
+		private String piece;
+		private int orient;
+		private int number;
+		private int row;
+		private int column;
+		
+		public PieceState(JSONObject st){
+			this.piece = st.getString("piece");
+			this.orient = st.getInt("orient");
+			this.number = st.getInt("number");
+			this.row = st.getInt("row");
+			this.column = st.getInt("column");
+			
+			
+		}
+		
+		public String getPiece(){
+			return piece;
+		}
+		
+		public int getOrient(){
+			return orient;
+		}
+		
+		public int getRow(){
+			return row;
+		}
+		
+		public int getColumn(){
+			return column;
+		}
+		
+	}
+	
+}

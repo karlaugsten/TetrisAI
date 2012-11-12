@@ -1,0 +1,17 @@
+package ai;
+
+public class PageRank {
+	
+	private int[][] ranks;
+	private int numofstacks = 43046721;
+	
+	public PageRank(){
+		ranks = new int[2][numofstacks];
+	}
+	
+	public void performRanks(){
+		
+	}
+	
+
+}

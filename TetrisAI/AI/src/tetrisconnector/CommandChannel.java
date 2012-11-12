@@ -1,11 +1,13 @@
 package tetrisconnector;
 
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.json.JSONObject;
 import org.zeromq.ZMQ;
 
 public class CommandChannel implements Runnable{
@@ -14,6 +16,7 @@ public class CommandChannel implements Runnable{
 	private Queue<Command> queue;
 	private Lock qMutex;
 	private Condition empty;
+	private String clienttoken = null;
 	
 	public CommandChannel(ZMQ.Context c){
 		channel = c.socket(ZMQ.REQ);
@@ -51,8 +54,20 @@ public class CommandChannel implements Runnable{
 			qMutex.unlock();
 			
 			channel.send(c.getBytes(),0);
+			// TODO: Here we will have to check if the response is "ok" to make sure it was sent.
+			String resp = new String(channel.recv(0));
+			System.out.println(resp);
+			JSONObject obj = null;
+			try {
+				obj = new JSONObject(resp);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(obj.getString("comm_type").equals("MatchConnectResp")){
+				setClienttoken(obj.getString("client_token"));
+			}
 			
-			System.out.println(new String(channel.recv(0)));
 			
 		}
 		
@@ -69,6 +84,14 @@ public class CommandChannel implements Runnable{
 		empty.signal();
 		qMutex.unlock();
 		
+	}
+
+	public String getClienttoken() {
+		return clienttoken;
+	}
+
+	public void setClienttoken(String clienttoken) {
+		this.clienttoken = clienttoken;
 	}
 	
 }

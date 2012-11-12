@@ -1,0 +1,17 @@
+package tetrisconnector;
+
+public class Run {
+
+	/**
+	 * Main function which will setup match
+	 */
+	public static void main(String[] args) {
+		Connect c = new Connect();
+		String matchtoken = "5d8488f9-2820-41a1-a817-a2d5ceb1dce3";
+		String url = "ec2-50-19-179-117.compute-1.amazonaws.com";
+		c.ConnectManual(matchtoken, url);
+		//c.ConnectAuto();
+
+	}
+
+}

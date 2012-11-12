@@ -1,0 +1,72 @@
+package tetrisconnector;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class BoardStateResp extends Response {
+	
+	private String gamename;
+	private State opponentstate;
+	private State state;
+	
+	
+	public BoardStateResp(JSONObject j){
+		
+		super(Integer.parseInt(j.getString("sequence")),(double)j.get("timestamp"),j.getString("comm_type"));
+		JSONArray jsub = j.getJSONArray("states");
+		if(jsub.getJSONObject(0).has("Team 112"));
+		{
+			state = new State(jsub.getJSONObject(0));
+			opponentstate = new State(jsub.getJSONObject(1));
+			
+		}
+		else if(jsub.getJSONObject(1).has("Team 112"))
+		{
+			state = new State(jsub.getJSONObject(1));
+			opponentstate = new State(jsub.getJSONObject(0));
+			
+		}else{
+			System.out.println("ERROR: DID NOT RETRIEVE STATE");
+		}
+	}
+	
+
+	private class State{
+		
+		private String boardstate;
+		private int piecenum;
+		private int[] clearedrows;
+		
+		public State(JSONObject st){
+			setBoardstate(st.getString("board_state"));
+			setPiecenum(Integer.parseInt(st.getString("piece_number")));
+			setClearedrows((int[])st.get("cleared_rows"));
+			
+		}
+
+		public String getBoardstate() {
+			return boardstate;
+		}
+
+		public void setBoardstate(String boardstate) {
+			this.boardstate = boardstate;
+		}
+
+		public int getPiecenum() {
+			return piecenum;
+		}
+
+		public void setPiecenum(int piecenum) {
+			this.piecenum = piecenum;
+		}
+
+		public int[] getClearedrows() {
+			return clearedrows;
+		}
+
+		public void setClearedrows(int[] clearedrows) {
+			this.clearedrows = clearedrows;
+		}
+		
+	}
+}

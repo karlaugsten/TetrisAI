@@ -1,0 +1,10 @@
+package integration;
+
+import tetrisconnector.Response;
+
+public class Communicator {
+	public Communicator(){}
+	
+	public void putMessage(Response r){}
+
+}
