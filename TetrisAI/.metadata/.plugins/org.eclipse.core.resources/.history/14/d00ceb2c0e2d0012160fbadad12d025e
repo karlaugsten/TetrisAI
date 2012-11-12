@@ -12,4 +12,6 @@ public class Searcher {
 	public void setBoardState(int[] boardstate) {
 		this.boardstate = boardstate;
 	}
+	
+	
 }

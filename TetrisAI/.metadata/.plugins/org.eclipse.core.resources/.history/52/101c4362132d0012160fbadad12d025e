@@ -1,0 +1,12 @@
+package ai;
+
+public class S extends Tetrimino {
+
+	public S(int orientation, int column, int row) {
+		super(orientation, column, row);
+		super.offsets = new LinkedList<Position>();
+		super.possibleorientations = 0;
+		super.offsets.add()
+	}
+
+}

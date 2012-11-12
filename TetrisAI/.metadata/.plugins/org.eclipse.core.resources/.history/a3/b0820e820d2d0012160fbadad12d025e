@@ -1,0 +1,10 @@
+package ai;
+
+public interface Tetrimino {
+	
+	
+	
+	public int getColumn();
+	public int getOrientation();
+
+}

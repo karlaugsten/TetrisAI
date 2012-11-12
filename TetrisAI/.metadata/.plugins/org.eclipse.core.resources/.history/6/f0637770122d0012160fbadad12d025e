@@ -1,0 +1,30 @@
+package ai;
+
+public class O extends Tetrimino {
+
+	@Override
+	public int getColumn() {
+		// TODO Auto-generated method stub
+		return 0;
+		
+	}
+
+	@Override
+	public int getOrientation() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Position getNextOffset(int row, int column) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int dropTetrimino(int column, int[] boardstate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

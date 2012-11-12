@@ -1,0 +1,25 @@
+package ai;
+
+public interface Tetrimino {
+	
+	/**
+	 * 
+	 * @return The column where the terimino is located
+	 */
+	public int getColumn();
+	/**
+	 * 
+	 * @return The orientation number for this tetrimino
+	 */
+	public int getOrientation();
+	/**
+	 * 
+	 * @param row Get the next tetrimino block
+	 * @param column
+	 * @return
+	 */
+	public Position getNextOffset(int row, int column);
+	public int dropTetrimino(int column);
+	
+	
+}

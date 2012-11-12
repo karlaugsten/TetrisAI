@@ -1,0 +1,47 @@
+package ai;
+
+import java.util.List;
+
+public abstract class Tetrimino {
+
+	private List<Position> offsets;
+	private int column;
+	private int row;
+	private int orientation;
+	private int currentoffset = 0;
+	
+	/**
+	 * 
+	 * @return The column where the terimino is located
+	 */
+	public int getColumn(){
+		return column;
+	}
+	
+	/**
+	 * 
+	 * @return The orientation number for this tetrimino
+	 */
+	public int getOrientation(){
+		return orientation;
+	}
+	/**
+	 * 
+	 * @param row the position of the center of the Tetrimino.
+	 * @param column The column of the position of the Tetrimino.
+	 * @return The position of the next block of the Tetrimino, returns null if all positions have been returned.
+	 */
+	public Position getNextOffset(int row, int column){
+		Position next = offsets.get(currentoffset++);
+		
+	}
+	/**
+	 * 
+	 * @param column The column of the center of the Tetrimino we are dropping.
+	 * @param boardstate The state of the board we are dropping onto.
+	 * @return The row where the center of the Tetrimino will land.
+	 */
+	public int dropTetrimino(int column, int[] boardstate);
+	
+	
+}
