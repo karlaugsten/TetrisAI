@@ -1,0 +1,60 @@
+package ai;
+
+import integration.Communicator;
+
+public class Algorithm 
+{
+	private Communicator c;
+
+	/**
+	 * Create a new Algorithm Class
+	 * Pass in Communicator object
+	 * @param c
+	 */
+	public Algorithm(Communicator c)
+	{
+			this.c = c;
+	}
+	
+	public void start()
+	{
+		String Tetrimino = null;
+		while(Tetrimino == null){
+			Tetrimino = c.getPiece();
+		}
+		
+		Tetrimino current = getTetrimino(Tetrimino, c.getPieceOrient(), c.getPieceRow(), c.getPieceColumn());
+		
+		GetBestPosition(current);
+	}
+	
+	public void GetBestPosition(Tetrimino current)
+	{
+		
+		
+	}
+	
+	
+	public Tetrimino getTetrimino(String tet, int orient, int row, int col){
+		char t = tet.charAt(0);
+		Tetrimino current = null;
+		switch (t) {
+			case 'J': 	current = new J();
+						break;
+			case 'I':	current = new I(orient, col, row);
+						break;
+			case 'O':	current = new O(orient, col, row);
+						break;
+			case 'S':	current = new S(orient, col, row);
+						break;
+			case 'Z':	current = new Z();
+						break;
+			case 'L':	current = new L();
+						break;
+			case 'T':	current = new T();
+						break;
+		}
+		return current;
+	}
+	
+}

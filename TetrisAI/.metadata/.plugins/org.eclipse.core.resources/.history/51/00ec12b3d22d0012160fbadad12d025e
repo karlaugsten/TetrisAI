@@ -30,13 +30,6 @@ public class Algorithm
 		GetBestPosition(current, boardstate);
 	}
 	
-	/**
-	 * A function which iterates all possible positions of the tetrimino and calculates which position will give the best
-	 * score according to the calculator.
-	 * @param current The current Tetrimino to try to place.
-	 * @param boardstate The current state of the Tetris board
-	 * @return The new state of the tetris board after placing the Tetrimino.
-	 */
 	public int[] GetBestPosition(Tetrimino current, int[] boardstate)
 	{
 		double bestscore = -Double.MAX_VALUE;

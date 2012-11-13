@@ -1,0 +1,10 @@
+package ai;
+
+public class Calculator {
+
+	
+	public double calculateScore(int[] oldboardstate, int[] newboardstate){
+		
+		return 0;
+	}
+}
