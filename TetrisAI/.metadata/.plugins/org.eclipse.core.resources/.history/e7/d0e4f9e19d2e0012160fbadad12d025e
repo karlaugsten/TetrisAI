@@ -25,7 +25,7 @@ public class Algorithm
 			Tetrimino = c.getPiece();
 		}
 		
-		Tetrimino current = getTetrimino(Tetrimino, c.getPieceRow(), c.getPieceColumn());
+		Tetrimino current = getTetrimino(Tetrimino, c.getPieceOrient(), c.getPieceRow(), c.getPieceColumn());
 		int[] boardstate = c.getBoardState();
 		GetBestPosition(current, boardstate);
 	}
@@ -59,7 +59,7 @@ public class Algorithm
 	}
 	
 	
-	public Tetrimino getTetrimino(String tet, int row, int col){
+	public Tetrimino getTetrimino(String tet, int orient, int row, int col){
 		char t = tet.charAt(0);
 		Tetrimino current = null;
 		switch (t) {

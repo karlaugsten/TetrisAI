@@ -3,25 +3,15 @@ package ai;
 public class Calculator {
 
 	private double lineweight = 3.1;
-	private double walledgeweight = 2.1;
-	private double groundedgeweight = 1.5;
-	private double holeweight = -2.0;
-	private double stepweight = 0.5;
-	private double heightweight = -3.5;
 	private int LER = 0;
 	
 	public double calculateScore(int[] oldboardstate, int[] newboardstate){
 		// we will store the newboard state as we will be changing it in calculateNumLines
 		int[] oldnewboardstate = newboardstate.clone();
 		double score = 0;
-		findLER(newboardstate);
-		score += walledgeweight*numEdgesTouchingWall(oldboardstate, newboardstate);
-		score += groundedgeweight*numEdgesTouchingGround(oldboardstate, newboardstate);
+		
 		score += lineweight*calculateNumLines(newboardstate);
 		findLER(newboardstate);
-		score += holeweight*numHolesFormed(oldboardstate, newboardstate);
-		score += stepweight*numSteps(newboardstate);
-		score += heightweight*heightPenalty(oldboardstate, newboardstate);
 		return score;
 	}
 	
@@ -84,16 +74,6 @@ public class Calculator {
 	}
 	
 	private int numEdgesTouchingWall(int[] oldboardstate, int[] newboardstate){
-		int numedges = 0;
-		int maskright = 1 << 9;
-		int maskleft = 1;
-		for(int i = LER; i < 20; i++){
-			if(((((newboardstate[i] & maskright) == maskright) && ((oldboardstate[i] & maskright) != maskright)) || 
-					(((newboardstate[i] & maskleft) == maskleft) && (oldboardstate[i] & maskleft) != maskleft))){
-				numedges++;
-			}
-		}
-		return numedges;
 		
 	}
 	
@@ -146,22 +126,6 @@ public class Calculator {
 			colheight = nextcolheight;
 		}
 		return numsteps;
-	}
-	
-	/**
-	 * This function computes difference in column heights, purely experimental this function will need some improving.
-	 * @param oldboardstate
-	 * @param newboardstate
-	 * @return
-	 */
-	private int heightPenalty(int[] oldboardstate, int[] newboardstate){
-		int newheightsum = 0;
-		int oldheightsum = 0;
-		for(int i = 0; i < 10; i++){
-			newheightsum += findColumnHeight(newboardstate, i);
-			oldheightsum += findColumnHeight(oldboardstate, i);
-		}
-		return newheightsum - oldheightsum;
 	}
 	
 	/**

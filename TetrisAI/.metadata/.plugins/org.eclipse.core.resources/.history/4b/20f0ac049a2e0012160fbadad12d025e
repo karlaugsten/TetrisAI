@@ -3,25 +3,15 @@ package ai;
 public class Calculator {
 
 	private double lineweight = 3.1;
-	private double walledgeweight = 2.1;
-	private double groundedgeweight = 1.5;
-	private double holeweight = -2.0;
-	private double stepweight = 0.5;
-	private double heightweight = -3.5;
 	private int LER = 0;
 	
 	public double calculateScore(int[] oldboardstate, int[] newboardstate){
 		// we will store the newboard state as we will be changing it in calculateNumLines
 		int[] oldnewboardstate = newboardstate.clone();
 		double score = 0;
-		findLER(newboardstate);
-		score += walledgeweight*numEdgesTouchingWall(oldboardstate, newboardstate);
-		score += groundedgeweight*numEdgesTouchingGround(oldboardstate, newboardstate);
+		
 		score += lineweight*calculateNumLines(newboardstate);
 		findLER(newboardstate);
-		score += holeweight*numHolesFormed(oldboardstate, newboardstate);
-		score += stepweight*numSteps(newboardstate);
-		score += heightweight*heightPenalty(oldboardstate, newboardstate);
 		return score;
 	}
 	
@@ -45,7 +35,7 @@ public class Calculator {
 	 * @param newboardstate The state of the board after placing the new Tetrimino.
 	 * @return The number of lines which are cleared.
 	 */
-	private int calculateNumLines(int[] newboardstate){
+	public int calculateNumLines(int[] newboardstate){
 		int numlines = 0;
 		int mask = 0x3FF;
 		for(int i = 0; i < 20; i++){
@@ -59,42 +49,9 @@ public class Calculator {
 		return numlines;
 	}
 	
-	private int numEdgesTouchingBlocks(int[] oldboardstate, int[] newboardstate){
+	public int numEdgesTouchingBlocks(int[] oldboardstate, int[] newboardstate){
 		
 		return 0;
-	}
-	
-	/**
-	 * Method which calculates the number of edges touching the ground of the current Tetrimino
-	 * @param oldboardstate The old state of the board before dropping tetrimino.
-	 * @param newboardstate The new board state right after dropping the tetrimino.
-	 * @return Number of edges of the tetrimino touching the ground.
-	 */
-	private int numEdgesTouchingGround(int[] oldboardstate, int[] newboardstate){
-		int numedges = 0;
-		
-		for(int i = 0; i < 10; i++){
-			int mask = 1 << i;
-			if((newboardstate[19] & mask) == mask && (oldboardstate[19] & mask) != mask){
-				numedges++;
-			}
-		}
-		
-		return numedges;
-	}
-	
-	private int numEdgesTouchingWall(int[] oldboardstate, int[] newboardstate){
-		int numedges = 0;
-		int maskright = 1 << 9;
-		int maskleft = 1;
-		for(int i = LER; i < 20; i++){
-			if(((((newboardstate[i] & maskright) == maskright) && ((oldboardstate[i] & maskright) != maskright)) || 
-					(((newboardstate[i] & maskleft) == maskleft) && (oldboardstate[i] & maskleft) != maskleft))){
-				numedges++;
-			}
-		}
-		return numedges;
-		
 	}
 	
 	/**
@@ -103,14 +60,14 @@ public class Calculator {
 	 * @param newboardstate
 	 * @return
 	 */
-	private int numHolesFormed(int[] oldboardstate, int[] newboardstate){
+	public int numHolesFormed(int[] oldboardstate, int[] newboardstate){
 		int newholes = 0;
 		int oldholes = 0;
 		for(int i = 0; i < 10; i++){
 			int mask = 1 << i;
 			boolean inblocks = false;
 			boolean inblocksnew = false;
-			for(int j = LER; j < 20; j++){
+			for(int j = 0; j < 20; j++){
 				if((mask & oldboardstate[j]) == mask && !inblocks){
 					inblocks = true;
 				}
@@ -133,7 +90,7 @@ public class Calculator {
 	 * @param newboardstate
 	 * @return
 	 */
-	private int numSteps(int[] newboardstate){
+	public int numSteps(int[] newboardstate){
 		
 		int numsteps = 0;
 		// follow the top of the stack and count the steps
@@ -148,28 +105,6 @@ public class Calculator {
 		return numsteps;
 	}
 	
-	/**
-	 * This function computes difference in column heights, purely experimental this function will need some improving.
-	 * @param oldboardstate
-	 * @param newboardstate
-	 * @return
-	 */
-	private int heightPenalty(int[] oldboardstate, int[] newboardstate){
-		int newheightsum = 0;
-		int oldheightsum = 0;
-		for(int i = 0; i < 10; i++){
-			newheightsum += findColumnHeight(newboardstate, i);
-			oldheightsum += findColumnHeight(oldboardstate, i);
-		}
-		return newheightsum - oldheightsum;
-	}
-	
-	/**
-	 * Function which finds the height of the column on that boardstate.
-	 * @param boardstate The boardstate which you are analyzing.
-	 * @param column The column which you want to know the height of.
-	 * @return The height of the specified column.
-	 */
 	private int findColumnHeight(int[] boardstate, int column){
 		int height = 0;
 		int mask = 1 << (9-column);

@@ -6,8 +6,6 @@ public class Calculator {
 	private double walledgeweight = 2.1;
 	private double groundedgeweight = 1.5;
 	private double holeweight = -2.0;
-	private double stepweight = 0.5;
-	private double heightweight = -3.5;
 	private int LER = 0;
 	
 	public double calculateScore(int[] oldboardstate, int[] newboardstate){
@@ -20,8 +18,6 @@ public class Calculator {
 		score += lineweight*calculateNumLines(newboardstate);
 		findLER(newboardstate);
 		score += holeweight*numHolesFormed(oldboardstate, newboardstate);
-		score += stepweight*numSteps(newboardstate);
-		score += heightweight*heightPenalty(oldboardstate, newboardstate);
 		return score;
 	}
 	

@@ -1,0 +1,115 @@
+package ai;
+
+public class Calculator {
+
+	private double lineweight = 3.1;
+	private int LER = 0;
+	
+	public double calculateScore(int[] oldboardstate, int[] newboardstate){
+		// we will store the newboard state as we will be changing it in calculateNumLines
+		int[] oldnewboardstate = newboardstate.clone();
+		double score = 0;
+		
+		score += lineweight*calculateNumLines(newboardstate);
+		findLER(newboardstate);
+		return score;
+	}
+	
+	/**
+	 * Function which will find the lowest empty row.
+	 * @param boardstate The boardstate for which to find the lowest empty row.
+	 */
+	private void findLER(int[] boardstate){
+		int mask = 0xFFFF;
+		for(int i = 0; i < 20; i++){
+			if((boardstate & mask) != 0){
+				LER = i-1;
+			}
+		}
+	}
+	
+	/**
+	 * Method which will calculate the number of lines that are cleared from this board state.
+	 * This method will also change the board state by erasing the cleared lines.
+	 * @param newboardstate The state of the board after placing the new Tetrimino.
+	 * @return The number of lines which are cleared.
+	 */
+	public int calculateNumLines(int[] newboardstate){
+		int numlines = 0;
+		int mask = 0x3FF;
+		for(int i = 0; i < 20; i++){
+			if((newboardstate[i] & mask) == mask){
+				numlines++;
+				for(int j = i-1; j >= 0; j--){
+					newboardstate[j+1] = newboardstate[j];
+				}
+			}
+		}
+		return numlines;
+	}
+	
+	public int numEdgesTouchingBlocks(int[] oldboardstate, int[] newboardstate){
+		
+		return 0;
+	}
+	
+	/**
+	 * Function which takes the difference between holes of the new and old board states, calculating how many holes are formed.
+	 * @param oldboardstate
+	 * @param newboardstate
+	 * @return
+	 */
+	public int numHolesFormed(int[] oldboardstate, int[] newboardstate){
+		int newholes = 0;
+		int oldholes = 0;
+		for(int i = 0; i < 10; i++){
+			int mask = 1 << i;
+			boolean inblocks = false;
+			boolean inblocksnew = false;
+			for(int j = 0; j < 20; j++){
+				if((mask & oldboardstate[j]) == mask && !inblocks){
+					inblocks = true;
+				}
+				else if((mask & oldboardstate[j]) == 0 && inblocks){
+					oldholes++;
+				}
+				if((mask & newboardstate[j]) == mask && !inblocksnew){
+					inblocksnew = true;
+				}else if((mask & newboardstate[j]) == 0 && inblocksnew){
+					newholes++;
+				}
+				
+			}
+		}
+		return Math.max((newholes-oldholes), 0);
+	}
+	
+	/**
+	 * This method will calculate the number of 1 steps formed in the playing board, normally it is better to have a few steps then no steps at all.
+	 * @param newboardstate
+	 * @return
+	 */
+	public int numSteps(int[] newboardstate){
+		// first find the first block in the first column.
+		int mask = 1 << 9;
+		int count = 0;
+		while(count < 20){
+			if((mask & newboardstate[count]) == mask){
+				break;
+			}
+			count++;
+		}
+		int numsteps = 0;
+		// follow the top of the stack and count the steps
+		for(int i = 0; i < 9; i++){
+			mask = 1 << (9-i-1);
+			if((mask & newboardstate[count+1]) == mask && (mask & newboardstate[count+2]) != mask){
+				numsteps++;
+				count++;
+			}else if(count > 19 && (mask & newboardstate[count-1]) == mask && (mask & newboardstate[count-2]) != mask){
+				
+			}
+		}
+		return numsteps;
+	}
+}

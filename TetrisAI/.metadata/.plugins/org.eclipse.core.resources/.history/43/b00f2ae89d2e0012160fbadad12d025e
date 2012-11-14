@@ -59,7 +59,7 @@ public class Algorithm
 	}
 	
 	
-	public Tetrimino getTetrimino(String tet, int row, int col){
+	public Tetrimino getTetrimino(String tet, int orient, int row, int col){
 		char t = tet.charAt(0);
 		Tetrimino current = null;
 		switch (t) {
