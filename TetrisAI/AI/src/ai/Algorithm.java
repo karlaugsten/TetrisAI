@@ -62,19 +62,19 @@ public class Algorithm
 		char t = tet.charAt(0);
 		Tetrimino current = null;
 		switch (t) {
-			case 'J': 	current = new J();
+			case 'J': 	current = new J(col, row);
 						break;
-			case 'I':	current = new I(orient, col, row);
+			case 'I':	current = new I(col, row);
 						break;
-			case 'O':	current = new O(orient, col, row);
+			case 'O':	current = new O(col, row);
 						break;
-			case 'S':	current = new S(orient, col, row);
+			case 'S':	current = new S(col, row);
 						break;
-			case 'Z':	current = new Z();
+			case 'Z':	current = new Z(col, row);
 						break;
-			case 'L':	current = new L();
+			case 'L':	current = new L(col, row);
 						break;
-			case 'T':	current = new T();
+			case 'T':	current = new T(col, row);
 						break;
 			default:	System.out.println("ERROR: ALGORITHM could not detect tetrimino string");
 						break;

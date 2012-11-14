@@ -5,7 +5,8 @@ public class Calculator {
 	private double lineweight = 3.1;
 	
 	public double calculateScore(int[] oldboardstate, int[] newboardstate){
-		
+		// we will store the newboard state as we will be changing it in calculateNumLines
+		int[] oldnewboardstate = newboardstate.clone();
 		double score = 0;
 		
 		score += lineweight*calculateNumLines(newboardstate);

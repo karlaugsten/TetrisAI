@@ -1,0 +1,14 @@
+package ai;
+
+import java.util.LinkedList;
+
+public class I extends Tetrimino {
+
+	public I(int orientation, int column, int row) {
+		super(column, row);
+		
+		super.possibleorientations = 1;
+		
+	}
+
+}

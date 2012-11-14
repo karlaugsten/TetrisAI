@@ -1,0 +1,105 @@
+package ai;
+
+import java.util.List;
+
+public class Tetrimino {
+	
+	/**
+	 * list of 4x4 bitmasks where center of tetrimino is at (2,2);
+	 */
+	protected int[] bitmasks;
+	private int column;
+	private int row;
+	private int orientation;
+	protected int possibleorientations;
+	private int currentoffset = 0;
+	private int leftMost;
+	private int rightMost;
+	
+	public Tetrimino(int column, int row){
+		orientation = 0;
+		this.column = column;
+		this.row = row;
+	}
+	
+	/**
+	 * 
+	 * @return The column where the terimino is located
+	 */
+	public int getColumn(){
+		return column;
+	}
+	
+	/**
+	 * 
+	 * @return The orientation number for this tetrimino
+	 */
+	public int getOrientation(){
+		return orientation;
+	}
+	
+	/**
+	 * function which will rotate the bitmasks and therefore Tetrimino right.
+	 */
+	public void rotateRight(){
+		int[] ret = new int[4];
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				//ret[i][j] = matrix[4-j-1][i]
+				int mask = bitmasks[4-j-1] & (1 << i);
+				ret[i] |= mask;
+			}
+		}
+		orientation++;
+		bitmasks = ret;
+	}
+	
+	public int getLeftMost(){
+		return leftMost;
+	}
+	
+	public int getRightMost(){
+		return rightMost;
+	}
+	
+	/**
+	 * 
+	 * @param column The column of the center of the Tetrimino we are dropping.
+	 * @param boardstate The state of the board we are dropping onto.
+	 * @return The new board state.
+	 */
+	public int[] dropTetrimino(int column, int[] boardstate){
+		int[] newbitmask = new int[4];
+		if(column < rightMost || column > leftMost){
+			return null;
+		}
+		if(column == 0){
+			for(int i = 0; i < 4; i++){
+				newbitmask[i] = bitmasks[i] >> 1;
+			}
+		}else{
+			for(int i = 0; i < 4; i++){
+				newbitmask[i] = bitmasks[i] << (column - 1);
+			}
+		}
+		boolean found = false;
+		int count = 0;
+		int loopto = 4;
+		if(newbitmask[2] == 0){
+			loopto = 2
+		}else if(newbitmask[3] == 0){
+			loopto = 3;
+		}
+		while(!found){
+			boardstate[count] & newbitmask[0];
+			boardstate[count+1] & newbitmask[1];
+			boardstate[count+2] & newbitmask[2];
+			boardstate[count+3] & newbitmask[3];
+			
+			count++;
+		}
+		
+	}
+	
+	
+}

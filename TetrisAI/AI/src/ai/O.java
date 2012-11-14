@@ -4,13 +4,10 @@ import java.util.LinkedList;
 
 public class O extends Tetrimino {
 
-	public O(int orientation, int column, int row) {
-		super(orientation, column, row);
-		super.offsets = new LinkedList<Position>();
-		super.offsets.add(new Position(0,0));
-		super.offsets.add(new Position(-1,1));
-		super.offsets.add(new Position(-1,0));
-		super.offsets.add(new Position(0,1));
+	public O(int column, int row) {
+		super(column, row);
+		super.bitmasks[1] = 0x6;
+		super.bitmasks[2] = 0x6;
 		super.possibleorientations = 0;
 	}
 }
