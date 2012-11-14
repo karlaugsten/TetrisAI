@@ -39,34 +39,13 @@ public class Calculator {
 		return 0;
 	}
 	
-	/**
-	 * Function which takes the difference between holes of the new and old board states, calculating how many holes are formed.
-	 * @param oldboardstate
-	 * @param newboardstate
-	 * @return
-	 */
 	public int numHolesFormed(int[] oldboardstate, int[] newboardstate){
-		int newholes = 0;
-		int oldholes = 0;
 		for(int i = 0; i < 10; i++){
 			int mask = 1 << i;
-			boolean inblocks = false;
-			boolean inblocksnew = false;
 			for(int j = 0; j < 20; j++){
-				if((mask & oldboardstate[j]) == mask && !inblocks){
-					inblocks = true;
-				}
-				else if((mask & oldboardstate[j]) == 0 && inblocks){
-					oldholes++;
-				}
-				if((mask & newboardstate[j]) == mask && !inblocksnew){
-					inblocksnew = true;
-				}else if((mask & newboardstate[j]) == 0 && inblocksnew){
-					newholes++;
-				}
 				
 			}
 		}
-		return Math.max((newholes-oldholes), 0);
+		return 0;
 	}
 }

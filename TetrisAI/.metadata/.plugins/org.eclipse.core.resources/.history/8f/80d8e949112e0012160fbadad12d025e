@@ -44,7 +44,6 @@ public class Algorithm
 		int orientation = 0;
 		int[] newboardstate = null;
 		for(int orient = 0; orient <= current.possibleorientations; orient++){
-			current.rotateRight();
 			for(int column = current.getLeftMost(); column <= current.getRightMost(); column++){
 				newboardstate = current.dropTetrimino(column, boardstate);
 				double score = calculator.calculateScore(boardstate, newboardstate);
